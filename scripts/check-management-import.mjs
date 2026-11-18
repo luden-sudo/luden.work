@@ -1,0 +1,22 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import assert from 'node:assert/strict';
+import ts from 'typescript';
+const compile=file=>ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ESNext}}).outputText;
+const url=code=>'data:text/javascript;base64,'+Buffer.from(code).toString('base64');
+const finance=url(compile('src/lib/finance.ts'));
+const management=url(compile('src/lib/management.ts').replace(/(['"])\.\/finance\1/g,JSON.stringify(finance)));
+const code=compile('src/lib/management-import.ts').replace(/(['"])\.\/management\1/g,JSON.stringify(management)).replace(/(['"])exceljs\1/g,JSON.stringify(pathToFileURL(path.resolve('node_modules/exceljs/excel.js')).href));
+const {previewWorkbook}=await import(url(code));
+const file=process.argv[2]||'C:/Users/Administrator/Downloads/ventas (1).xlsx';
+const bytes=fs.readFileSync(file);
+let rows;
+try{rows=await previewWorkbook(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength));}catch(e){console.error(e.message);process.exit(1);}
+assert.equal(rows.length,139);
+assert.equal(new Set(rows.map(r=>r.source_key)).size,139);
+assert.ok(rows.every(r=>r.data.source_sheet!=='ScanTap'&&r.data.source_row>0&&r.data.original));
+assert.ok(rows.some(r=>r.data.warnings.some(w=>/Estado original:.*[Xx]/.test(w))));
+assert.ok(rows.some(r=>r.duplicate));
+assert.ok(rows.every(r=>!r.data.purchase_date&&!r.data.sale_date));
+console.log(JSON.stringify({records:rows.length,activities:Object.fromEntries(['ventas','amigos','bonos'].map(k=>[k,rows.filter(r=>r.data.activity===k).length])),possibleDuplicates:rows.filter(r=>r.duplicate).length,sourcePreserved:true,financialMovementsCreated:0}));

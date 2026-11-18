@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+  <title id="title">luden</title>
+  <desc id="desc">Agenda, money and orders in one app. luden.work</desc>
+  <rect width="1280" height="400" fill="#fafaf7"/>
+  <rect x="0.5" y="0.5" width="1279" height="399" fill="none" stroke="#e4e2db"/>
+  <g transform="translate(88 92)">
+    <rect width="56" height="56" rx="13" fill="#2457e6"/>
+    <rect x="17.5" y="11.4" width="7.9" height="33.2" rx="3.9" fill="#fff"/>
+    <circle cx="35.4" cy="39.8" r="4.8" fill="#fff"/>
+    <text x="74" y="40" fill="#17181a" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="600" letter-spacing="-0.5">luden</text>
+  </g>
+  <text x="88" y="232" fill="#17181a" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="46" letter-spacing="-1">Your day, your money and your orders.</text>
+  <text x="88" y="284" fill="#5c5f66" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24">Agenda, personal finance and order tracking for phone and desktop.</text>
+  <text x="88" y="336" fill="#2457e6" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="600">luden.work</text>
+  <g transform="translate(900 92)" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <rect width="292" height="216" rx="14" fill="#fff" stroke="#e4e2db"/>
+    <text x="22" y="38" fill="#5c5f66" font-size="14">Available to spend</text>
+    <text x="22" y="82" fill="#17181a" font-size="36" font-weight="600" letter-spacing="-1">€2,384.20</text>
+    <rect x="22" y="100" width="248" height="6" rx="3" fill="#f2f1ec"/>
+    <rect x="22" y="100" width="164" height="6" rx="3" fill="#2457e6"/>
+    <line x1="22" y1="128" x2="270" y2="128" stroke="#e4e2db"/>
+    <text x="22" y="154" fill="#5c5f66" font-size="14">Income</text>
+    <text x="270" y="154" fill="#18794e" font-size="14" font-weight="600" text-anchor="end">+€1,725.00</text>
+    <line x1="22" y1="172" x2="270" y2="172" stroke="#e4e2db"/>
+    <text x="22" y="198" fill="#5c5f66" font-size="14">Expenses</text>
+    <text x="270" y="198" fill="#17181a" font-size="14" font-weight="600" text-anchor="end">−€803.43</text>
+  </g>
+</svg>

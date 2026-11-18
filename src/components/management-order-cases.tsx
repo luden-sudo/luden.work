@@ -1,0 +1,10 @@
+'use client';
+import { t, tv } from "@/lib/i18n";
+import {Check,RefreshCw,ArrowDownLeft} from 'lucide-react';
+import {money,type ManagementItem} from '@/lib/management';
+export default function OrderCases({item,busy,onChange,receivedAmount=0,onRegisterRefund}:{item:ManagementItem;busy:boolean;onChange:(kind:'refund'|'exchange',status:string)=>void;receivedAmount?:number;onRegisterRefund?:()=>void}){
+ const refund=item.data.refund_status||'none',exchange=item.data.exchange_status||'none';
+ return <div className="mg-case-section"><div className="mg-order-cases" role="group" aria-label={t("Reembolso e intercambio")}><button className="mg-case-requested" disabled={busy||item.archived} aria-pressed={refund==='requested'} onClick={()=>onChange('refund',refund==='requested'?'none':'requested')}><RefreshCw size={16}/><span>{t("Reembolso pedido")}</span></button><button className="mg-case-done" disabled={busy||item.archived} aria-pressed={refund==='received'} title={t("Dejar el artículo en 3,70 €; el teléfono y los demás gastos se conservan")} onClick={()=>onChange('refund',refund==='received'?'requested':'received')}><Check size={16}/><span>{t("Reembolso recibido")}</span></button><button disabled={busy||item.archived} aria-pressed={exchange==='requested'} onClick={()=>onChange('exchange',exchange==='requested'?'none':'requested')}><RefreshCw size={16}/><span>{t("Intercambio pedido")}</span></button><button className="mg-case-done" disabled={busy||item.archived} aria-pressed={exchange==='completed'} onClick={()=>onChange('exchange',exchange==='completed'?'requested':'completed')}><Check size={16}/><span>{t("Intercambio completado")}</span></button></div>
+ 
+ {refund==='received'&&<div className="mg-refund-receipt" role="status"><p>{tv(receivedAmount>0?t("Ingreso registrado en Caja: {0}.",{0:money(receivedAmount)}):t("Coste ajustado. Si has recibido dinero, registra el ingreso o vincula su movimiento."))}</p>{receivedAmount===0&&onRegisterRefund&&<button className="secondary" disabled={busy||item.archived} onClick={onRegisterRefund}><ArrowDownLeft size={16}/>{t("Registrar ingreso del reembolso")}</button>}</div>}</div>;
+}

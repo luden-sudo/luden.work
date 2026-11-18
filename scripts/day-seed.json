@@ -1,0 +1,282 @@
+[
+  {
+    "title": "Levantarse",
+    "description": "Empieza el día y haz la cama.",
+    "time": "07:00",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "rutina",
+    "remind": true
+  },
+  {
+    "title": "Desayunar",
+    "description": "Desayuna con calma.",
+    "time": "07:15",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "comida",
+    "remind": true
+  },
+  {
+    "title": "Cambiarse y prepararse",
+    "description": "Vístete y prepara la mochila.",
+    "time": "07:30",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "rutina",
+    "remind": true
+  },
+  {
+    "title": "Salir de casa",
+    "description": "Camino al instituto.",
+    "time": "07:50",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "rutina",
+    "remind": true
+  },
+  {
+    "title": "Instituto · FP",
+    "description": "Clases hasta las 14:45.",
+    "time": "08:15",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "estudio",
+    "remind": true
+  },
+  {
+    "title": "Volver a casa",
+    "description": "Vuelve a casa para comer.",
+    "time": "14:45",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "rutina",
+    "remind": true
+  },
+  {
+    "title": "Comer",
+    "description": "Come y repón energía.",
+    "time": "15:00",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "comida",
+    "remind": true
+  },
+  {
+    "title": "Descansar",
+    "description": "Un rato para descansar.",
+    "time": "15:45",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "descanso",
+    "remind": true
+  },
+  {
+    "title": "Trabajo",
+    "description": "Avanza con tu trabajo.",
+    "time": "16:15",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "trabajo",
+    "remind": true
+  },
+  {
+    "title": "Merienda y descanso",
+    "description": "Merienda y desconecta un rato.",
+    "time": "17:45",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "comida",
+    "remind": true
+  },
+  {
+    "title": "Ducha",
+    "description": "Dúchate y ponte cómodo.",
+    "time": "18:15",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "rutina",
+    "remind": true
+  },
+  {
+    "title": "Descansar",
+    "description": "Tiempo libre hasta las 20:00.",
+    "time": "18:45",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "descanso",
+    "remind": true
+  },
+  {
+    "title": "Revisar pendientes",
+    "description": "Revisa trabajo, tareas y negocios.",
+    "time": "20:00",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "trabajo",
+    "remind": true
+  },
+  {
+    "title": "Cena",
+    "description": "Cena con calma.",
+    "time": "21:00",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "comida",
+    "remind": true
+  },
+  {
+    "title": "Descanso después de cenar",
+    "description": "Un rato tranquilo.",
+    "time": "21:30",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "descanso",
+    "remind": true
+  },
+  {
+    "title": "Lavarse los dientes",
+    "description": "Cepíllate los dientes.",
+    "time": "21:45",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "rutina",
+    "remind": true
+  },
+  {
+    "title": "Recoger el cuarto",
+    "description": "Ordena el cuarto y la ropa.",
+    "time": "21:50",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "casa",
+    "remind": true
+  },
+  {
+    "title": "Ocio · juegos y series",
+    "description": "Disfruta de tus juegos o series.",
+    "time": "22:00",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "noche",
+    "remind": true
+  },
+  {
+    "title": "Desconectar",
+    "description": "Deja las pantallas y relájate.",
+    "time": "23:30",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "noche",
+    "remind": true
+  },
+  {
+    "title": "Dormir",
+    "description": "A la cama y a descansar.",
+    "time": "23:45",
+    "weekdays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "kind": "noche",
+    "remind": true
+  }
+]

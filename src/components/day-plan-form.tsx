@@ -1,0 +1,27 @@
+"use client";
+import { t, tv } from "@/lib/i18n";
+import TimePicker from './time-picker';
+import {useState} from 'react';
+import {CalendarDays,Clock3,Trash2} from 'lucide-react';
+import {dayKey,kinds,localMinute,shiftDay,validDay,type DayBlock,type DayChange} from '@/lib/day-plan';
+
+const labels={rutina:'Personal',comida:'Comida',trabajo:'Trabajo',estudio:'Estudio',descanso:'Plan personal',entreno:'Deporte',noche:'Ocio',compra:'Compra',casa:'Casa'};
+export default function DayPlanForm({initial,today,now,blocks,busy,error,onSave,onCancel,onDelete}:{initial:DayBlock;today:string;now:Date;blocks:DayBlock[];changes:DayChange[];busy:boolean;error:string;onSave:(block:DayBlock)=>void;onCancel:()=>void;onDelete:(block:DayBlock)=>void}){
+ const [plan,setPlan]=useState(initial),[hasEnd,setHasEnd]=useState(Boolean(initial.end_time)),[chooseDate,setChooseDate]=useState(initial.plan_date!==today&&initial.plan_date!==shiftDay(today,1));
+ const valid=!!plan.title.trim()&&validDay(plan.plan_date)&&plan.plan_date>=today&&/^([01]\d|2[0-3]):[0-5]\d$/.test(plan.time)&&(!hasEnd||!!plan.end_time&&plan.time<plan.end_time);
+ const conflict=hasEnd&&plan.end_time?blocks.find(b=>b.id!==plan.id&&b.plan_date===plan.plan_date&&b.end_time&&b.time<plan.end_time!&&b.end_time>plan.time):null;
+ function rightNow(){const mins=localMinute(now);setPlan({...plan,plan_date:dayKey(now),time:String(Math.floor(mins/60)).padStart(2,'0')+':'+String(mins%60).padStart(2,'0')});setChooseDate(false);}
+ return <form className="day-plan-form task-quick-form" onSubmit={e=>{e.preventDefault();if(valid&&!conflict)onSave({...plan,end_time:hasEnd?plan.end_time:null});}}>
+   <label className="task-title-field">{t("¿Qué tienes que hacer?")}<input autoFocus required maxLength={100} placeholder={t("Recoger un paquete, quedar con alguien…")} value={plan.title} onChange={e=>setPlan({...plan,title:e.target.value})}/></label>
+   <fieldset className="task-day-picker"><legend>{t("¿Cuándo?")}</legend><div className="day-plan-shortcuts"><button className="secondary" type="button" aria-pressed={!chooseDate&&plan.plan_date===today} onClick={()=>{setPlan({...plan,plan_date:today});setChooseDate(false);}}>{t("Hoy")}</button><button className="secondary" type="button" aria-pressed={!chooseDate&&plan.plan_date===shiftDay(today,1)} onClick={()=>{setPlan({...plan,plan_date:shiftDay(today,1)});setChooseDate(false);}}>{t("Mañana")}</button><button className="secondary" type="button" aria-pressed={chooseDate} onClick={()=>setChooseDate(true)}><CalendarDays size={17}/>{t("Otro día")}</button></div>{chooseDate&&<label>{t("Fecha")}<input type="date" required min={today} value={plan.plan_date||today} onChange={e=>setPlan({...plan,plan_date:e.target.value})}/></label>}</fieldset>
+   <fieldset className="form-block"><legend>{t("Horario")}</legend><div className="task-time-fields"><div className="task-start-row"><TimePicker label={t("A qué hora")} required value={plan.time} onChange={time=>setPlan({...plan,time})}/><button className="secondary" type="button" onClick={rightNow}><Clock3 size={17}/>{t("Ahora")}</button></div>
+   <details className="task-end-options" open={Boolean(initial.end_time)||undefined}><summary>{t("Hora de fin")} <span>{t("Opcional")}</span></summary><label className="day-toggle task-end-toggle"><input type="checkbox" checked={hasEnd} onChange={e=>{setHasEnd(e.target.checked);if(!e.target.checked)setPlan({...plan,end_time:null});}}/><span>{t("Añadir hora de fin")}<small>{t("Opcional. Puedes dejar la tarea sin duración.")}</small></span></label>
+   {hasEnd&&<div className="task-end-field"><TimePicker label={t("Termina a las")} required value={plan.end_time||''} onChange={time=>setPlan({...plan,end_time:time})}/>{plan.end_time&&plan.end_time<=plan.time&&<span className="form-error">{t("El fin debe ser posterior al inicio, en el mismo día.")}</span>}</div>}
+   </details></div></fieldset>
+   <details className="task-more"><summary>{t("Más opciones")}</summary><div className="form-fields"><label className="full">{t("Tipo")}<select value={plan.kind} onChange={e=>setPlan({...plan,kind:e.target.value as DayBlock['kind']})}>{kinds.map(kind=><option key={kind} value={kind}>{tv(labels[kind])}</option>)}</select></label><label className="full">{t("Nota o lugar")}<input maxLength={1000} placeholder={t("Opcional")} value={plan.description} onChange={e=>setPlan({...plan,description:e.target.value})}/></label><label className="day-toggle full"><input type="checkbox" checked={plan.remind} onChange={e=>setPlan({...plan,remind:e.target.checked})}/><span>{t("Avisarme")}<small>{t("5 minutos antes y al empezar.")}</small></span></label></div></details>
+   <p className="task-save-summary">{tv(hasEnd?t("Con hora de inicio y fin."):t("Sin hora de fin."))}{tv(plan.remind?t(" Los avisos requieren estar activados en este dispositivo."):'')}</p>
+   {conflict&&<p className="form-error" role="alert">{t("Coincide con «")}{tv(conflict.title)}{t("». Ajusta la hora de fin o deja la tarea sin duración.")}</p>}
+   {error&&<p className="form-error" role="alert">{tv(error)}</p>}
+   <div className="dialog-actions">{plan.id&&<button className="icon-button danger" type="button" aria-label={t("Eliminar tarea")} disabled={busy} onClick={()=>onDelete(plan)}><Trash2 size={20}/></button>}<button className="secondary" type="button" disabled={busy} onClick={onCancel}>{t("Cancelar")}</button><button className="primary" disabled={busy||!valid||!!conflict}>{tv(busy?t("Guardando…"):plan.id?t("Guardar cambios"):t("Añadir tarea"))}</button></div>
+ </form>;
+}

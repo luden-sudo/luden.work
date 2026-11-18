@@ -1,0 +1,36 @@
+{
+  "name": "aurum",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src scripts",
+    "test": "node scripts/check-mobile-viewport.mjs && node scripts/check-backup.mjs && node scripts/check-finance.mjs && node scripts/check-finance-loading.mjs && node scripts/check-management-display.mjs && node scripts/check-management-import.mjs && node scripts/check-order-form.mjs && node scripts/check-personal-workflow.mjs && node scripts/check-savings.mjs && node scripts/check-day.mjs",
+    "test:management": "node --env-file=.env.local scripts/check-management.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
+    "exceljs": "4.4.0",
+    "lucide-react": "^1.48.0",
+    "next": "16.3.8",
+    "postgres": "^3.4.9",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "web-push": "3.6.7"
+  },
+  "overrides": {"exceljs":{"uuid":"11.1.1"},"sharp":"0.35.5","source-map-js":"1.2.2"},
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/web-push": "3.6.4",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

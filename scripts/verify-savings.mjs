@@ -1,0 +1,44 @@
+import assert from 'node:assert/strict';
+import {randomUUID} from 'node:crypto';
+import {savings} from './savings-module.mjs';
+const origin=process.env.AUDIT_ORIGIN||'http://127.0.0.1:3110';
+assert.match(origin,/^http:\/\/(localhost|127\.0\.0\.1):\d+$/);
+const login=async()=>{const r=await fetch(origin+'/api/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin:process.env.AUDIT_PIN})});assert.equal(r.status,200);return r.headers.get('set-cookie').split(';')[0];};
+const [a,b]=await Promise.all([login(),login()]);
+const call=(cookie,table,query='',method='GET',body)=>fetch(origin+'/api/finance/'+table+query,{method,headers:{cookie,'Content-Type':'application/json',Prefer:'return=representation'},body:body?JSON.stringify(body):undefined});
+const result=async(response)=>{assert.ok(response.ok,await response.clone().text());return response.json();};
+const accountIds=[];let entryId='',locationKey='',moveKey='';
+const prefix='QA savings '+randomUUID();
+try{
+ const bank=(await result(await call(a,'luden_accounts','','POST',{name:prefix+' source',kind:'Banco',opening_balance:500})))[0];accountIds.push(bank.id);
+ const saving=(await result(await call(a,'luden_accounts','','POST',{name:prefix+' saving',kind:'Ahorro',opening_balance:0})))[0];accountIds.push(saving.id);
+ locationKey=savings.SAVINGS_LOCATION+saving.id;
+ await result(await call(a,'luden_budgets','?on_conflict=category','POST',{category:locationKey,amount:1}));
+ const location=await result(await call(b,'luden_budgets','?category=eq.'+encodeURIComponent(locationKey)));
+ assert.equal(savings.savingsLocation(saving,location),'Efectivo');
+ const holdings=savings.savingsBreakdown([],[bank,saving],location);
+ assert.equal(holdings.length,1);assert.equal(holdings[0].balance,0);
+ const row={title:prefix,category:'Traspaso',type:'traspaso',amount:15.5,account_id:bank.id,destination_account_id:saving.id,date:'2026-10-09',savings_month:'2099-11',micro:false};
+ const created=(await result(await call(a,'luden_transactions','','POST',row)))[0];entryId=created.id;
+ const read=(await result(await call(b,'luden_transactions','?id=eq.'+entryId)))[0];
+ assert.equal(read.savings_month,'2099-11');assert.equal(read.date,'2026-10-09');
+ assert.equal(savings.monthlySavings([read],[bank,saving],'2099-11'),15.5);assert.equal(savings.monthlySavings([read],[bank,saving],'2026-10'),0);
+ await result(await call(b,'luden_transactions','?id=eq.'+entryId,'PATCH',{amount:20,savings_month:'2099-12'}));
+ const edited=(await result(await call(a,'luden_transactions','?id=eq.'+entryId)))[0];
+ assert.equal(savings.monthlySavings([edited],[bank,saving],'2099-11'),0);assert.equal(savings.monthlySavings([edited],[bank,saving],'2099-12'),20);
+ const invalid=await call(a,'luden_transactions','?id=eq.'+entryId,'PATCH',{savings_month:'2099-13'});assert.equal(invalid.status,400);
+ moveKey=savings.savingsMoveCategory('2099-12','2099-11',randomUUID(),saving.id);
+ await result(await call(a,'luden_budgets','','POST',{category:moveKey,amount:12}));
+ const moveRows=await result(await call(b,'luden_budgets','?category=eq.'+encodeURIComponent(moveKey)));
+ const afterSource=savings.monthlySavings([edited],[bank,saving],'2099-12',moveRows),afterDestination=savings.monthlySavings([edited],[bank,saving],'2099-11',moveRows);
+ assert.equal(afterSource,8);assert.equal(afterDestination,12);assert.equal(afterSource+afterDestination,20);
+ assert.equal(savings.monthlySavingsForAccount([edited],saving,'2099-12',moveRows),8);
+ await result(await call(a,'luden_budgets','?category=eq.'+encodeURIComponent(moveKey),'DELETE'));moveKey='';
+ await result(await call(a,'luden_transactions','?id=eq.'+entryId,'DELETE'));entryId='';
+ console.log('PASS: two authenticated sessions, future allocation, month-to-month reallocation, edit, validation and delete. Temporary records cleaned.');
+}finally{
+ if(moveKey)await call(a,'luden_budgets','?category=eq.'+encodeURIComponent(moveKey),'DELETE');
+ if(locationKey)await call(a,'luden_budgets','?category=eq.'+encodeURIComponent(locationKey),'DELETE');
+ if(entryId)await call(a,'luden_transactions','?id=eq.'+entryId,'DELETE');
+ for(const id of accountIds)await call(a,'luden_accounts','?id=eq.'+id,'DELETE');
+}

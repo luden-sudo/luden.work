@@ -1,0 +1,244 @@
+/* One form language across money, orders, tasks and cash. */
+.app-form-sheet.dialog:not(.dialog-fullscreen),.app-form-sheet.mg-sheet{width:min(620px,calc(100% - 40px));max-height:calc(var(--app-viewport-height,100dvh) - 48px);padding:0;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface);color:var(--ink);box-shadow:var(--elev-3);overflow:auto;overscroll-behavior:contain;scroll-padding-block:88px 112px}
+.app-form-sheet::backdrop{background:var(--backdrop);backdrop-filter:none}
+.app-form-sheet>header{position:sticky;top:0;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;margin:0;background:var(--surface);border-bottom:1px solid var(--line)}
+.app-form-sheet>header h2{margin:0;font-size:21px;line-height:1.3;font-weight:700;letter-spacing:-.025em}
+.app-form-sheet>header button{display:grid;place-items:center;min-width:44px;min-height:44px;border-radius:50%;flex-shrink:0}
+.app-form-sheet.dialog>form{padding:24px;margin:0}
+.app-form-sheet.dialog .dialog-actions{position:sticky;bottom:-24px;z-index:3;margin:20px -24px -24px;padding:14px 24px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--surface);display:flex;gap:10px;justify-content:flex-end}
+.app-form-sheet .dialog-actions>button,.app-form-sheet .mg-form>footer>button{min-height:48px}
+.app-form-sheet .form-block{padding-top:18px;border:0;border-top:1px solid var(--line);background:transparent;border-radius:0}
+.app-form-sheet .form-block:first-of-type{border-top:0;padding-top:0}
+.app-form-sheet .form-block>legend{font-size:14px;font-weight:600;color:var(--muted);margin-bottom:12px}
+.app-form-sheet :is(input,select,textarea):not(:where([type=checkbox],[type=radio],[type=hidden])){font-size:16px;min-height:48px;border-radius:12px;max-width:100%}
+.app-form-sheet :is(input,select,textarea):focus-visible{outline:2px solid var(--info-text);outline-offset:2px}
+.app-form-sheet :is(input,select,textarea){scroll-margin-block:88px 120px}
+.app-form-sheet .entry-type-options{gap:5px;padding:4px;background:var(--field);border-radius:14px;display:flex}
+.app-form-sheet .entry-type-options button{flex:1;min-height:44px;flex-direction:row;gap:7px;border:0;border-radius:10px;background:transparent;font-size:14px;color:var(--muted)}
+.app-form-sheet .entry-type-options button.selected{background:var(--soft);color:var(--info-text)}
+.app-form-sheet .entry-money{border:0;background:transparent;justify-content:center;padding:12px 0}
+.app-form-sheet .entry-money input{max-width:260px;text-align:center;font-size:clamp(36px,8vw,48px);font-weight:650;letter-spacing:-.03em;line-height:1.25;background:transparent;min-height:72px}
+.app-form-sheet .entry-money>span{font-size:24px}
+.app-form-sheet :is(.entry-category-picker,.entry-more,.task-end-options){border:0;border-top:1px solid var(--line);padding:0;min-width:0}
+.app-form-sheet .entry-category-picker>summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:56px;cursor:pointer;font-size:14px}
+.app-form-sheet .entry-category-picker>summary::-webkit-details-marker{display:none}
+.entry-category-picker>summary>strong{margin-left:auto;font-size:14px;font-weight:600;text-align:right;overflow-wrap:anywhere}
+.entry-category-picker[open]>summary>svg{transform:rotate(90deg)}
+.app-form-sheet .category-search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding-left:12px;margin-bottom:12px}
+.app-form-sheet .category-search input{border:0;background:transparent;min-width:0;width:100%}
+.app-form-sheet .entry-category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.app-form-sheet .entry-category-grid button{min-height:48px;display:flex;align-items:center;justify-content:flex-start;gap:8px;padding:10px 12px;font-size:14px;line-height:1.4;text-align:left}
+.app-form-sheet .entry-category-grid button svg{flex-shrink:0}
+.app-form-sheet .entry-category-more{margin-bottom:12px}
+.app-form-sheet :is(.entry-more,.task-end-options)>summary{min-height:48px;align-content:center;cursor:pointer;font-size:14px;font-weight:500}
+.task-end-options>summary>span{float:right;color:var(--muted);font-size:13px}
+.app-form-sheet .order-purpose{margin:0;padding:0;border:0;min-width:0}
+.order-purpose>legend{font-size:14px;font-weight:600;margin-bottom:9px}
+.order-purpose>div{display:flex;gap:5px;background:var(--field);border-radius:14px;padding:4px}
+.order-purpose button{flex:1;min-height:44px;padding:8px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:14px;font-weight:600}
+.order-purpose button[aria-pressed=true]{color:var(--info-text);background:var(--soft)}
+.app-form-sheet .order-person-required{border:0;padding:0}
+.order-person-required>summary{display:none}
+.app-form-sheet .mg-form-main{padding:24px;gap:20px}
+.app-form-sheet .mg-form-main .mg-form-main{padding:12px 0 0}
+.app-form-sheet .mg-phone-section{padding:0;border:0;border-radius:0;background:transparent}
+.app-form-sheet .mg-form>footer{padding:14px 24px calc(14px + env(safe-area-inset-bottom));background:var(--surface);gap:10px}
+.app-form-sheet .mg-payment-quote{background:transparent;border:0;padding:0}
+.app-form-sheet .mg-payment-quote>small{display:none}
+.app-form-sheet .mg-payment-explanation p{margin-top:10px}
+@media(max-width:800px){
+ .app-form-sheet.dialog:not(.dialog-fullscreen),.app-form-sheet.mg-sheet{width:100%;max-width:100%;margin:auto 0 0;max-height:calc(var(--app-viewport-height,100dvh) - max(16px,env(safe-area-inset-top)));border-radius:var(--radius-lg) var(--radius-lg) 0 0;border-bottom:0}
+ .app-form-sheet>header{padding:12px 18px}
+ .app-form-sheet>header h2{font-size:20px}
+ .app-form-sheet.dialog>form{padding:20px 18px}
+ .app-form-sheet.dialog .dialog-actions{bottom:-20px;margin:18px -18px -20px;padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
+ .app-form-sheet .mg-form-main{padding:20px 18px;gap:18px}
+ .app-form-sheet .mg-form>footer{padding:12px 18px calc(12px + env(safe-area-inset-bottom))}
+ .app-form-sheet .mg-form>footer>.primary{width:100%;min-width:0}
+ .app-form-sheet .entry-type-options button{font-size:13px;min-height:44px}
+}
+@media(prefers-reduced-motion:no-preference){.app-form-sheet[open]{animation:form-sheet-enter .18s cubic-bezier(.2,.8,.2,1)}@keyframes form-sheet-enter{from{opacity:.8;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}}
+
+/* Non-form dialogs keep readable margins; destructive confirmations stay explicit. */
+.app-form-sheet.dialog>p{margin:18px 24px;line-height:1.6}
+.app-form-sheet.dialog>.dialog-actions{position:static;margin:0;padding:16px 24px calc(16px + env(safe-area-inset-bottom))}
+.app-form-sheet.dialog>.settings-layout{padding:20px 24px}
+.app-form-sheet.dialog.dialog-fullscreen{padding:0}
+html[data-keyboard="open"] .app-form-sheet{top:var(--app-viewport-top,0px);bottom:auto;margin:8px auto;max-height:calc(var(--app-viewport-height,100dvh) - 16px)}
+.app-form-sheet button:active{filter:brightness(.94)}
+
+/* The selected destination must override the generic management button reset. */
+.mg-sheet.app-form-sheet fieldset.order-purpose>div>button[aria-pressed=true]{background:var(--soft);color:var(--info-text);box-shadow:inset 0 0 0 1px var(--info-text)}
+.mg-sheet.app-form-sheet fieldset.order-purpose>div>button[aria-pressed=false]{background:transparent;color:var(--muted)}
+.day-agenda-content{padding:20px 24px 24px;display:grid;gap:18px}
+.day-agenda-content>.day-plan-intro,.day-agenda-content .day-plans>.day-plan-intro{margin:0;padding:0;line-height:1.6}
+.day-agenda-actions{display:flex;flex-wrap:wrap;gap:10px}
+.day-agenda-actions>.day-weekly-link{flex:1 1 180px;margin:0;width:auto;min-height:48px}
+.day-agenda-actions>.primary{flex:1 1 160px;min-height:48px}
+.day-agenda-content .day-plans{margin:0}
+@media(max-width:800px){.day-agenda-content{padding:18px;gap:16px}}
+
+/* Direct content needs the same insets as forms inside the shared sheet. */
+.app-form-sheet>.savings-manager{padding:24px}
+.app-form-sheet .savings-month-picker{gap:8px;align-items:center}
+.app-form-sheet .savings-month-picker label{font-size:13px;color:var(--muted)}
+.app-form-sheet .savings-month-picker input{color:var(--ink);min-height:48px}
+.app-form-sheet .savings-advanced>summary{font-size:14px;line-height:1.5}
+@media(max-width:800px){
+ .app-form-sheet>.savings-manager{padding:18px max(18px,env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));gap:16px}
+ .app-form-sheet .savings-selected{padding:16px}
+ .app-form-sheet .savings-month-picker{grid-template-columns:44px minmax(0,1fr) 44px;gap:4px}
+ .app-form-sheet .savings-month-picker input{padding-inline:8px}
+ .app-form-sheet .savings-total strong{font-size:1.625rem}
+}
+.app-form-sheet>.day-settings{padding:22px 24px 24px;gap:22px}
+.app-form-sheet>.day-settings>section{display:grid;gap:12px}
+.app-form-sheet>.day-settings h3,.app-form-sheet>.day-settings p{margin:0}
+.app-form-sheet>.day-settings>section>select{width:100%;min-height:48px}
+.app-form-sheet>.day-settings>section>.secondary{justify-self:start}
+.finance-settings-content{display:grid;gap:18px}
+.finance-settings-content>.settings-disclosure,.finance-settings-content>.finance-notifications-launch{margin:0}
+.task-quick-actions{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:12px}
+.task-quick-actions>button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 11px;border:1px solid var(--line);border-radius:10px;font-size:13px;font-weight:600;line-height:1.3;background:var(--surface);color:var(--ink)}
+.task-quick-actions>.task-quick-start{color:var(--info-text);border-color:var(--info-text);background:var(--soft)}
+.task-quick-actions>button:disabled{opacity:.5}
+.day-upcoming-item{min-width:0}
+.day-upcoming-item>.day-upcoming-card{width:100%}
+@media(max-width:800px){.app-form-sheet>.day-settings{padding:18px;gap:18px}.task-quick-actions{gap:6px}.task-quick-actions>button{padding-inline:10px}}
+
+/* iPhone portrait, landscape and the software keyboard use the same visible bounds. */
+@media(max-width:800px),(max-height:500px) and (pointer:coarse){
+ .app-form-sheet>header,.app-form-sheet.dialog>form,.app-form-sheet .mg-form-main{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+ .app-form-sheet :is(input,select,textarea):not(:where([type=checkbox],[type=radio],[type=hidden])){font-size:max(16px,1rem);min-width:0;width:100%}
+ .app-form-sheet .mg-form-grid,.app-form-sheet .form-fields{grid-template-columns:minmax(0,1fr)}
+ .app-form-sheet .mg-form-grid>.full,.app-form-sheet .form-fields>.full{grid-column:auto}
+ .app-form-sheet :is(input[type=date],input[type=time],input[type=month]){appearance:none;-webkit-appearance:none;min-height:48px}
+ .app-form-sheet input::-webkit-date-and-time-value{text-align:left;min-height:1.3em}
+ .app-form-sheet input::-webkit-datetime-edit{padding:0;min-width:0}
+ .app-form-sheet .entry-money input{width:min(100%,260px)}
+ .mg-card .mg-stage-disclosure>summary,.mg-card .mg-case-disclosure>summary{min-height:44px}
+ .task-quick-actions>button,.mg-cash-tools>button{min-width:44px;min-height:44px}
+ .mg-sheet .mg-extra{grid-template-columns:minmax(0,1fr)}
+ .app-form-sheet .dialog-actions>button{white-space:normal;overflow-wrap:anywhere}
+}
+@media(max-height:500px) and (pointer:coarse){
+ .app-form-sheet.dialog:not(.dialog-fullscreen),.app-form-sheet.mg-sheet{max-height:calc(var(--app-viewport-height,100dvh) - 16px);margin:8px auto}
+ .app-form-sheet>header{padding-block:6px}
+}
+@media(prefers-reduced-motion:reduce){
+ .app-form-sheet[open],.countdown-digit{animation:none}
+ .today-ring-fill,.day-upcoming-card,.day-timeline-main{transition:none;transform:none}
+ html:focus-within{scroll-behavior:auto}
+}
+
+@media(max-width:800px),(max-height:500px) and (pointer:coarse){
+ .app-form-sheet .day-script-label textarea{font-size:16px}
+ .app-form-sheet label,.app-form-sheet summary{overflow-wrap:anywhere}
+ .app-form-sheet .mg-form>footer,.app-form-sheet.dialog .dialog-actions{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+}
+
+/* Action sheets keep the same inset as editing forms. */
+.app-form-sheet.dialog>.entry-action-list{padding:18px 24px 24px;gap:10px}
+.app-form-sheet .entry-action-list button{min-height:48px;padding:12px 14px;border-radius:12px;text-align:left;line-height:1.4;white-space:normal}
+.mobile-period-control{display:none}
+.mg-state-cases{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.mg-state-cases>h4{font-size:13px;font-weight:600;color:var(--muted);margin:0 0 8px}
+@media(max-width:800px){
+ .period>.period-picker{display:none}
+ .period>.mobile-period-control{display:flex;align-items:center;gap:6px;order:2;min-height:44px;max-width:65%;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding-left:11px}
+ .mobile-period-control>svg{flex:none;color:var(--info-text)}
+ .mobile-period-control>select{min-width:0;max-width:100%;width:auto;min-height:44px;font-size:16px;font-weight:600;border:0;background:transparent;color:var(--ink);padding:8px 10px 8px 2px;text-transform:capitalize}
+ .period>span{order:1;margin:0;font-size:11px}
+ .period{justify-content:space-between}
+ .app-form-sheet.dialog>.entry-action-list{padding:16px 18px calc(18px + env(safe-area-inset-bottom))}
+}
+
+.app .history-panel>.panel-heading{height:auto;min-height:52px;padding:4px 16px;gap:10px}
+.app .history-panel>.panel-heading>.text-button{min-height:44px;margin:0}
+@media(max-width:800px){
+ .app .topbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+ .app .topbar>.header-tools{display:flex;flex-wrap:nowrap;gap:6px;min-width:0}
+ .app .topbar .mobile-period-control{display:flex;align-items:center;gap:4px;min-height:44px;width:120px;max-width:120px;padding-left:8px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+ .app .topbar .mobile-period-control>select{width:100%;font-size:16px;padding-right:4px}
+ .app .period{display:none}
+}
+@media(max-width:360px){.app .topbar{grid-template-columns:minmax(0,1fr)}.app .topbar>.header-tools{justify-self:end}}
+
+.app-form-sheet.dialog>.finance-notifications{padding:20px 24px 24px;display:grid;gap:18px}
+.app-form-sheet .finance-notifications p{margin:0;line-height:1.5}
+.app-form-sheet .finance-notification-intro{align-items:start;gap:12px}
+.app-form-sheet .finance-notification-intro h3{margin:0 0 6px}
+.app-form-sheet .finance-details input[type=checkbox]{width:20px;height:20px;min-height:20px;flex:none;accent-color:var(--info-text)}
+.app-form-sheet .debt-direction-picker{padding:0;margin:0;border:0;min-width:0}
+.debt-direction-picker>legend{font-size:14px;font-weight:600;margin-bottom:10px}
+.debt-direction-options{display:flex;gap:6px;padding:4px;border-radius:14px;background:var(--field)}
+.debt-direction-options>.secondary{flex:1;border:0;min-height:44px}
+.app-form-sheet .debt-direction-options>button[aria-pressed=true]{background:var(--soft);color:var(--info-text);box-shadow:inset 0 0 0 1px var(--info-text)}
+.debt-options{border-top:1px solid var(--line);padding-top:6px}
+.debt-options>summary{min-height:44px;align-content:center;cursor:pointer;font-size:14px}
+.debt-options[open]>.form-fields{margin-top:12px}
+.app-form-sheet.dialog>.recurring-section{padding:18px 24px 24px}
+.app .topbar{align-items:center}
+.app .topbar h1{margin:0;line-height:1.2}
+@media(max-width:800px){
+ .app .topbar>.header-tools{align-items:center}
+ .app .finance-more-panel>.mobile-period-control{display:flex;width:100%;max-width:100%;min-height:48px;box-sizing:border-box}
+ .app .finance-more-panel>.mobile-period-control>select{width:100%;font-size:16px}
+ .app-form-sheet.dialog>.finance-notifications{padding:18px;gap:16px}
+ .app-form-sheet.dialog>.recurring-section{padding:18px}
+}
+
+.period-month-list{display:grid;gap:6px;max-height:min(42dvh,320px);overflow-y:auto;overscroll-behavior:contain;padding:2px}
+.app-form-sheet .period-month-list>button{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;width:100%;padding:12px 14px;text-align:left;background:var(--field);color:var(--ink);border:1px solid transparent;box-shadow:none}
+.app-form-sheet .period-month-list>button[aria-pressed=true]{color:var(--info-text);background:var(--soft);border-color:var(--info-text)}
+.period-month-list>button>span{text-transform:capitalize}
+.period-custom-month{margin-top:16px;border-top:1px solid var(--line)}
+.period-custom-month>summary{min-height:48px;align-content:center;cursor:pointer;font-size:14px}
+.app .finance-more-panel>button.mobile-period-control{justify-content:flex-start;text-align:left;white-space:normal}
+.mobile-period-control>span{flex:1;min-width:0;overflow-wrap:anywhere}
+.mobile-period-control>svg{flex:none}
+
+.app-form-sheet .debt-direction-picker{background:transparent;color:var(--ink);outline:0;border-radius:0}
+.app-form-sheet .debt-direction-options>button{font-size:14px;line-height:1.4;margin:0}
+
+/* Keep the two small day tools together instead of one icon per wide column. */
+@media(max-width:800px){
+ .day-app.day-today .day-topbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 8px;align-items:center}
+ .day-app.day-today .day-topbar>div:first-child{grid-column:1;grid-row:1}
+ .day-app.day-today .day-topbar .header-tools{display:contents}
+ .day-app.day-today .day-topbar .day-refresh,.day-app.day-today .day-topbar .day-settings-button{display:inline-flex;grid-column:2;grid-row:1;justify-self:end;align-self:center;width:44px;min-width:44px;height:44px;min-height:44px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--muted)}
+ .day-app.day-today .day-topbar .day-refresh{margin-right:52px}
+ .day-app.day-today .day-topbar .day-settings-button{margin-right:0}
+ .day-app.day-today .day-topbar .day-change-top{grid-column:1;grid-row:2;width:100%}
+ .day-app.day-today .day-topbar .day-saved-top{grid-column:2;grid-row:2;width:100%}
+}
+/* Premium finish: shared motion, tabular amounts, hover states and native option colors. */
+button,a,summary{transition:background-color var(--motion-fast) var(--ease-out),color var(--motion-fast) var(--ease-out),border-color var(--motion-fast) var(--ease-out),box-shadow var(--motion) var(--ease-out),transform var(--motion-fast) var(--ease-out),filter var(--motion-fast) var(--ease-out)}
+select option,select optgroup{background-color:var(--surface);color:var(--ink)}
+:is(.balance-hero strong,.large-number,.amount,.account>strong,.account-detail-summary strong,.debt-main>strong,.debt-numbers strong,.debt-payment strong,.budget strong,.limits-overview strong,.savings-holding-balance){font-variant-numeric:tabular-nums}
+h1,h2{text-wrap:balance}
+:root .primary.destructive,:root .primary.destructive:hover{background:var(--destructive);color:var(--on-accent)}
+@media(hover:hover){
+ .app .finance-subnav button:not(.selected):hover,.workspace>.area-nav a:not([aria-current="page"]):hover,.app-sidebar .area-nav a:not([aria-current="page"]):hover,.bottom-nav button:not(.selected):hover,.theme-options button:not([aria-pressed="true"]):hover{background:var(--field);color:var(--ink)}
+ .app-form-sheet .period-month-list>button:not([aria-pressed=true]):hover,.entry-action-list button:hover{border-color:var(--control-border)}
+}
+@media(prefers-reduced-motion:no-preference){
+ :is(.theme-options,.finance-more-panel,.summary-customize-panel){animation:popover-enter var(--motion-fast) var(--ease-out)}
+ @keyframes popover-enter{from{opacity:0;transform:translateY(-4px) scale(.98)}to{opacity:1;transform:none}}
+}
+/* Skeleton loading: page-shaped placeholders instead of spinner screens. */
+.skeleton-screen{min-height:100dvh;padding:calc(28px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 24px max(16px,env(safe-area-inset-left));background:var(--canvas)}
+.skeleton-page,.skeleton-list{display:grid;gap:16px;width:min(100%,960px);margin-inline:auto}
+.skeleton{display:block;border-radius:var(--radius-sm);background:var(--field)}
+@media(prefers-reduced-motion:no-preference){.skeleton{animation:skeleton-pulse 1.4s var(--ease-out) infinite alternate}}
+@keyframes skeleton-pulse{from{opacity:1}to{opacity:.55}}
+.skeleton-title{width:min(180px,50%);height:34px}
+.skeleton-hero{height:150px;border-radius:var(--radius-md)}
+.skeleton-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.skeleton-card{height:96px;border-radius:var(--radius-md)}
+.skeleton-rows{display:grid;gap:2px;padding:8px;border:1px solid var(--line);border-radius:var(--radius-md);background:var(--surface)}
+.skeleton-row{display:grid;grid-template-columns:36px minmax(0,1fr) 72px;gap:12px;align-items:center;padding:12px 8px}
+.skeleton-icon{width:36px;height:36px}
+.skeleton-lines{display:grid;gap:8px}
+.skeleton-line{height:12px;width:70%}.skeleton-line.short{width:40%}
+.skeleton-amount{height:16px}
